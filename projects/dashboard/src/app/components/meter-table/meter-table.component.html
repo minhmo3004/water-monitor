@@ -3,28 +3,68 @@
     <thead>
       <tr>
         <th rowspan="2" class="left-header">MÔ HÌNH DỰ ĐOÁN</th>
-        <th [attr.colspan]="days.length" class="top-header">DỰ ĐOÁN CÁC NGÀY</th>
+        <th colspan="7" class="top-header">DỰ ĐOÁN CÁC NGÀY</th>
       </tr>
       <tr>
-        <ng-container *ngFor="let d of days">
-          <th class="date-header">{{d}}</th>
-        </ng-container>
+        <th class="date-header">04/03/2025</th>
+        <th class="date-header">05/03/2025</th>
+        <th class="date-header">06/03/2025</th>
+        <th class="date-header">07/03/2025</th>
+        <th class="date-header">08/03/2025</th>
+        <th class="date-header">09/03/2025</th>
+        <th class="date-header">10/03/2025</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let model of models">
-        <td class="left-header">{{model.name}}</td>
-        <ng-container *ngFor="let value of model.values; let i = index">
-          <td
-            [ngClass]="{
-              'low': value === 'Nghi ngờ thấp' || value === 'Nghi thấp',
-              'medium': value === 'Nghi ngờ trung bình',
-              'high': value === 'Nghi ngờ cao'
-            }"
-          >
-            {{value}}
-          </td>
-        </ng-container>
+      <tr>
+        <td class="left-header">LSTM_minflow</td>
+        <td>Chưa có dữ liệu</td>
+        <td>Chưa có dữ liệu</td>
+        <td>Nghi ngờ thấp</td>
+        <td>Nghi ngờ cao</td>
+        <td>Nghi ngờ cao</td>
+        <td>Nghi ngờ cao</td>
+        <td>Nghi ngờ cao</td>
+      </tr>
+      <tr>
+        <td class="left-header">LSTM_maxflow</td>
+        <td>Chưa có dữ liệu</td>
+        <td>Chưa có dữ liệu</td>
+        <td>Nghi ngờ cao</td>
+        <td>Nghi ngờ cao</td>
+        <td>Nghi ngờ cao</td>
+        <td>Nghi ngờ cao</td>
+        <td>Nghi ngờ cao</td>
+      </tr>
+      <tr>
+        <td class="left-header">Isolation_minflow</td>
+        <td>Nghi ngờ thấp</td>
+        <td>Nghi ngờ thấp</td>
+        <td>Nghi ngờ thấp</td>
+        <td>Nghi ngờ thấp</td>
+        <td>Nghi ngờ thấp</td>
+        <td>Nghi ngờ thấp</td>
+        <td>Nghi ngờ thấp</td>
+      </tr>
+      <tr>
+        <td class="left-header">Isolation_maxflow</td>
+        <td>Nghi ngờ thấp</td>
+        <td>Nghi ngờ thấp</td>
+        <td>Nghi ngờ thấp</td>
+        <td>Nghi ngờ thấp</td>
+        <td>Nghi ngờ thấp</td>
+        <td>Nghi ngờ thấp</td>
+        <td>Nghi ngờ thấp</td>
+      </tr>
+      <tr>
+        <td class="left-header">Kết luận</td>
+        <td>Chưa xác định</td>
+        <td>Chưa xác định</td>
+        <td class="low">Nghi ngờ thấp</td>
+        <td class="medium">Nghi ngờ trung bình</td>
+        <td class="medium">Nghi ngờ trung bình</td>
+        <td class="medium">Nghi ngờ trung bình</td>
+        <td class="medium">Nghi ngờ trung bình</td>
       </tr>
     </tbody>
   </table>
