@@ -1,0 +1,31 @@
+<div class="meter-table">
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="2" class="left-header">MÔ HÌNH DỰ ĐOÁN</th>
+        <th [attr.colspan]="days.length" class="top-header">DỰ ĐOÁN CÁC NGÀY</th>
+      </tr>
+      <tr>
+        <ng-container *ngFor="let d of days">
+          <th class="date-header">{{d}}</th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let model of models">
+        <td class="left-header">{{model.name}}</td>
+        <ng-container *ngFor="let value of model.values; let i = index">
+          <td
+            [ngClass]="{
+              'low': value === 'Nghi ngờ thấp' || value === 'Nghi thấp',
+              'medium': value === 'Nghi ngờ trung bình',
+              'high': value === 'Nghi ngờ cao'
+            }"
+          >
+            {{value}}
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</div>

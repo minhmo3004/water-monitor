@@ -1,0 +1,48 @@
+.meter-table {
+  padding: 0;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #f9fbfd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px #e3e3e3;
+  }
+  th, td {
+    border: 1px solid #888;
+    padding: 10px 12px;
+    text-align: center;
+    font-size: 15px;
+    background: #fff;
+  }
+  .left-header {
+    font-weight: bold;
+    background: #f5f7fa;
+    color: #222;
+    min-width: 140px;
+  }
+  .top-header {
+    background: #e3f0fa;
+    font-size: 16px;
+    font-weight: bold;
+    color: #222;
+    text-align: center;
+  }
+  .date-header {
+    background: #f5f7fa;
+    font-weight: 500;
+    color: #222;
+  }
+  .low {
+    color: #388e3c;
+    font-weight: bold;
+  }
+  .medium {
+    color: #fbc02d;
+    font-weight: bold;
+  }
+  .high {
+    color: #d32f2f;
+    font-weight: bold;
+  }
+}
