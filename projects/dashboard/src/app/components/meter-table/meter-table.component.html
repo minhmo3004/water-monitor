@@ -6,65 +6,16 @@
         <th colspan="7" class="top-header">DỰ ĐOÁN CÁC NGÀY</th>
       </tr>
       <tr>
-        <th class="date-header">04/03/2025</th>
-        <th class="date-header">05/03/2025</th>
-        <th class="date-header">06/03/2025</th>
-        <th class="date-header">07/03/2025</th>
-        <th class="date-header">08/03/2025</th>
-        <th class="date-header">09/03/2025</th>
-        <th class="date-header">10/03/2025</th>
+        <th *ngFor="let day of days" class="date-header">{{day}}</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td class="left-header">LSTM_minflow</td>
-        <td>Chưa có dữ liệu</td>
-        <td>Chưa có dữ liệu</td>
-        <td>Nghi ngờ thấp</td>
-        <td>Nghi ngờ cao</td>
-        <td>Nghi ngờ cao</td>
-        <td>Nghi ngờ cao</td>
-        <td>Nghi ngờ cao</td>
-      </tr>
-      <tr>
-        <td class="left-header">LSTM_maxflow</td>
-        <td>Chưa có dữ liệu</td>
-        <td>Chưa có dữ liệu</td>
-        <td>Nghi ngờ cao</td>
-        <td>Nghi ngờ cao</td>
-        <td>Nghi ngờ cao</td>
-        <td>Nghi ngờ cao</td>
-        <td>Nghi ngờ cao</td>
-      </tr>
-      <tr>
-        <td class="left-header">Isolation_minflow</td>
-        <td>Nghi ngờ thấp</td>
-        <td>Nghi ngờ thấp</td>
-        <td>Nghi ngờ thấp</td>
-        <td>Nghi ngờ thấp</td>
-        <td>Nghi ngờ thấp</td>
-        <td>Nghi ngờ thấp</td>
-        <td>Nghi ngờ thấp</td>
-      </tr>
-      <tr>
-        <td class="left-header">Isolation_maxflow</td>
-        <td>Nghi ngờ thấp</td>
-        <td>Nghi ngờ thấp</td>
-        <td>Nghi ngờ thấp</td>
-        <td>Nghi ngờ thấp</td>
-        <td>Nghi ngờ thấp</td>
-        <td>Nghi ngờ thấp</td>
-        <td>Nghi ngờ thấp</td>
-      </tr>
-      <tr>
-        <td class="left-header">Kết luận</td>
-        <td>Chưa xác định</td>
-        <td>Chưa xác định</td>
-        <td class="low">Nghi ngờ thấp</td>
-        <td class="medium">Nghi ngờ trung bình</td>
-        <td class="medium">Nghi ngờ trung bình</td>
-        <td class="medium">Nghi ngờ trung bình</td>
-        <td class="medium">Nghi ngờ trung bình</td>
+      <tr *ngFor="let model of models">
+        <td class="left-header">{{model.name}}</td>
+        <td *ngFor="let value of model.values; let i = index" 
+            [ngClass]="getValueClass(value)">
+          {{value}}
+        </td>
       </tr>
     </tbody>
   </table>
