@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MeterModel, MeterData } from '../../models/meter.model';
+import { MeterSearchService } from '../../services/meter-search.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   meters = ['Văn Đẩu 8', 'Văn Đẩu 9', 'Văn Đẩu 10'];
   selectedMeter = this.meters[0];
   selectedDate = this.getToday();
@@ -22,9 +24,18 @@ export class DashboardComponent implements OnInit {
   currentModels: MeterModel[] = [];
   currentDays: string[] = [];
 
+  private subscriptions = new Subscription();
+
+  constructor(private meterSearchService: MeterSearchService) {}
+
   ngOnInit() {
     this.initializeData();
     this.updateCurrentData();
+    this.observeSearch();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   initializeData() {
@@ -113,6 +124,19 @@ export class DashboardComponent implements OnInit {
     
     // Cập nhật danh sách ngày để hiển thị (7 ngày từ ngày được chọn)
     this.currentDays = this.generateDaysFromSelectedDate(this.selectedDate);
+  }
+
+  private observeSearch(): void {
+    const sub = this.meterSearchService.searchTerm$.subscribe(term => {
+      if (!term) {
+        return;
+      }
+      const match = this.meters.find(m => m.toLowerCase().includes(term.toLowerCase())) || null;
+      if (match) {
+        this.onMeterChange(match);
+      }
+    });
+    this.subscriptions.add(sub);
   }
 
   formatDateForDisplay(dateString: string): string {
