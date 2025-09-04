@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MeterModel, MeterData } from '../../models/meter.model';
+import { MeterModel } from '../../models/meter.model';
 import { MeterSearchService } from '../../services/meter-search.service';
 import { Subscription } from 'rxjs';
 
@@ -9,16 +9,10 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  meters = ['Văn Đẩu 8', 'Văn Đẩu 9', 'Văn Đẩu 10'];
+  meters = ['Văn Đẩu 8', 'Văn Đẩu 9', 'Văn Đẩu 10', 'Văn Đẩu 11'];
   selectedMeter = this.meters[0];
   selectedDate = this.getToday();
 
-  days = [
-    '04/03/2025', '05/03/2025', '06/03/2025', '07/03/2025', '08/03/2025', '09/03/2025', '10/03/2025'
-  ];
-
-  // Dữ liệu mẫu cho từng ngày
-  meterDataByDate: { [key: string]: MeterModel[] } = {};
 
   // Dữ liệu hiện tại để hiển thị
   currentModels: MeterModel[] = [];
@@ -28,8 +22,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(private meterSearchService: MeterSearchService) {}
 
-  ngOnInit() {
-    this.initializeData();
+  ngOnInit() { 
     this.updateCurrentData();
     this.observeSearch();
   }
@@ -38,67 +31,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  initializeData() {
-    // Khởi tạo dữ liệu mẫu cho từng ngày
-    this.days.forEach((day, index) => {
-      this.meterDataByDate[day] = [
-        {
-          name: 'LSTM_minflow',
-          values: this.generateRandomValues(index)
-        },
-        {
-          name: 'LSTM_maxflow',
-          values: this.generateRandomValues(index)
-        },
-        {
-          name: 'Isolation_minflow',
-          values: this.generateRandomValues(index)
-        },
-        {
-          name: 'Isolation_maxflow',
-          values: this.generateRandomValues(index)
-        },
-        {
-          name: 'Kết luận',
-          values: this.generateConclusionValues(index)
-        }
-      ];
-    });
-  }
-
-  generateRandomValues(dayIndex: number): string[] {
-    const values = ['Chưa có dữ liệu', 'Nghi ngờ thấp', 'Nghi ngờ cao'];
-    const result = [];
-    
-    for (let i = 0; i < 7; i++) {
-      if (i < dayIndex) {
-        result.push('Chưa có dữ liệu');
-      } else if (i === dayIndex) {
-        result.push(values[Math.floor(Math.random() * values.length)]);
-      } else {
-        result.push(values[Math.floor(Math.random() * values.length)]);
-      }
-    }
-    
-    return result;
-  }
-
-  generateConclusionValues(dayIndex: number): string[] {
-    const values = ['Chưa xác định', 'Nghi ngờ thấp', 'Nghi ngờ trung bình', 'Nghi ngờ cao'];
-    const result = [];
-    
-    for (let i = 0; i < 7; i++) {
-      if (i < dayIndex) {
-        result.push('Chưa xác định');
-      } else if (i === dayIndex) {
-        result.push(values[Math.floor(Math.random() * values.length)]);
-      } else {
-        result.push(values[Math.floor(Math.random() * values.length)]);
-      }
-    }
-    
-    return result;
-  }
 
   getToday(): string {
     const today = new Date();
@@ -116,8 +48,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   updateCurrentData() {
-    // Lọc dữ liệu theo ngày được chọn
-    const selectedDateStr = this.formatDateForDisplay(this.selectedDate);
     
     // Tạo dữ liệu mới dựa trên ngày được chọn
     this.currentModels = this.createModelsForSelectedDate(this.selectedDate);
@@ -189,7 +119,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   createModelsForSelectedDate(selectedDate: string): MeterModel[] {
-    const date = new Date(selectedDate);
     const models: MeterModel[] = [];
     
     // Tạo dữ liệu cho 7 ngày từ ngày được chọn
